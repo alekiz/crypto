@@ -1,0 +1,58 @@
+
+
+/* Navbar container with background & shadow */
+.nav-container {
+  background: #141414;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Logo container styles */
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo text */
+.logo {
+  margin: 0;
+  font-weight: 700;
+}
+
+/* Menu control button */
+.menu-control-container {
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+/* Wrapper for the menu when opened */
+.menu-wrapper {
+  margin-top: 1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Override default Menu styles and increase width */
+
+
+/* Additional hover styling for Menu Items */
+.ant-menu-dark .ant-menu-item:hover,
+.ant-menu-dark .ant-menu-submenu-title:hover {
+  background-color: #1f1f1f !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 800px) {
+  .nav-container {
+    padding: 0.5rem;
+  }
+  .logo-container {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .menu-wrapper {
+    margin-top: 0.5rem;
+  }
+}
