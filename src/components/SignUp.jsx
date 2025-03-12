@@ -145,12 +145,11 @@ const SignUp = () => {
         <Title>Crypto Mining App Sign Up</Title>
         {errMsg && <ErrorText ref={errRef} aria-live="assertive">{errMsg}</ErrorText>}
         <NeomorphicInput
-          type="text"
-          placeholder="Username"
-          defaultValue=""
-          {...register("username", { required: "Username is required" })}
-          ref={userRef}
-        />
+  type="text"
+  placeholder="Username"
+  {...register("username", { required: "Username is required" })}
+/>
+
         {errors.username && <ErrorText>{errors.username.message}</ErrorText>}
         <NeomorphicInput
           type="email"
