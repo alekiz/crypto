@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL = 'http://localhost:4000';
+const BASE_URL = 'https://server1-sepia.vercel.app';
 
 export default axios.create({
     baseURL: BASE_URL
@@ -8,5 +8,5 @@ export default axios.create({
 export const axiosPrivate = axios.create({
     baseURL: BASE_URL,
     headers: { 'Content-Type': 'application/json' },
-    withCredentials: true
+    withCredentials: false
 });

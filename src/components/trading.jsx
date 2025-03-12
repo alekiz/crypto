@@ -42,7 +42,8 @@ const TradingViewWidget = () => {
             widgetProps={{
               theme: "dark",
               symbol: "BTCUSD",
-              interval: "D",
+              // Change the interval to "1" for 1-minute bars (more realtime)
+              interval: "1",
               timezone: "Etc/UTC",
               style: "1",
               locale: "en",

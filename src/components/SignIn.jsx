@@ -111,7 +111,7 @@ const SignIn = () => {
         JSON.stringify({ email, password }),
         {
           headers: { 'Content-Type': 'application/json' },
-          withCredentials: true,
+          withCredentials: false,
         }
       );
       console.log(JSON.stringify(response?.data));
