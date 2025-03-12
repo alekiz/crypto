@@ -351,42 +351,9 @@ function Dashboard() {
   // Investment Form Submission Handler
   const handleInvestmentSubmit = async (e) => {
     e.preventDefault();
-    setFormMessage('');
-    const amt = parseFloat(investmentInput);
-    if (isNaN(amt) || amt < 500) {
-      setFormMessage('Minimum investment is Ksh 500');
-      return;
-    }
-    setIsProcessing(true);
-    try {
-      const formattedPhone = formatPhoneNumber(phoneInput);
-      const res = await axiosPrivate.post('/initiate-payment', {
-        amount: amt,
-        email: user.email,
-        phone: formattedPhone,
-      });
-      const data = res.data;
-      if (res.status !== 200) {
-        setFormMessage(data.error || 'Payment initiation failed');
-        setIsProcessing(false);
-        return;
-      }
-      if (
-        data.verificationResult &&
-        data.verificationResult.data &&
-        data.verificationResult.data.status === 'success'
-      ) {
-        setFormMessage('Payment verified! Updating your investment...');
-        await fetchUserData(); // re-fetch user data after investment
-      } else {
-        setFormMessage('Payment verified! Updating your investment...');
-      }
-      setInvestmentInput('');
-      setIsProcessing(false);
-    } catch (err) {
-      setFormMessage('Server error initiating payment');
-      setIsProcessing(false);
-    }
+    // Optionally, validate the investment amount and phone input here
+    // Redirect to the Paystack payment page
+    window.location.href = "https://paystack.com/pay/rhx8gu3xx7";
   };
 
   return (
@@ -439,6 +406,7 @@ function Dashboard() {
                 />
               </FormGroup>
               <Button type="submit" disabled={isProcessing}>
+                
                 {isProcessing ? 'Processing...' : 'Initiate Payment'}
               </Button>
             </StyledForm>

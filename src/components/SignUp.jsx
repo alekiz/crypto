@@ -96,6 +96,7 @@ const SignUp = () => {
   }, [watch('username'), watch('email'), watch('password'), watch('confirmPassword'), watch('country'), watch('phoneNumber')]);
 
   const onSubmit = async (data) => {
+    console.log("Form Data:", data); // Debug
     if (!data.username || !data.password || !data.email) {
       setErrMsg('Please fill in all required fields.');
       return;
@@ -116,7 +117,7 @@ const SignUp = () => {
         }),
         {
           headers: { 'Content-Type': 'application/json' },
-          withCredentials: false
+          withCredentials: true
         }
       );
       console.log(JSON.stringify(response?.data));

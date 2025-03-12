@@ -7,14 +7,6 @@
    --light-blue: #e6f7ff;
    --border: #d9d9d9;
 }
-.ant-row.crypto-card-container.css-240cud {
-  display: none !important;
-}
-.crypto-card-container{
-    display: none !important;
-}
-
-
 
 * {
     margin: 0;

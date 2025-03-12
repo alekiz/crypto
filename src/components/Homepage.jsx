@@ -8,6 +8,7 @@ import News from "./News.jsx";
 import Loader from "./Loader.jsx";
 import Hero from "../hero.jsx";
 import styled, { createGlobalStyle } from "styled-components";
+import AboutSection from "./About.jsx";
 
 const { Title } = Typography;
 
@@ -51,11 +52,50 @@ const StatCard = styled.div`
 
 /* Section header for coins and news */
 const SectionHeader = styled.div`
+  background-color:rgb(57, 38, 38); /* Dark background */
+  padding: 8px 16px;
+  border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
+
+  /* On mobile, force the header to span full viewport width */
+  @media (max-width: 576px) {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    padding: 8px 12px;
+  }
 `;
+
+const HeaderTitle = styled(Title)`
+  && {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  @media (max-width: 576px) {
+    font-size: 1.2rem;
+  }
+`;
+
+const HeaderLink = styled(Title)`
+  && {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+  
+  @media (max-width: 576px) {
+    font-size: 1rem;
+  }
+  
+  a {
+    margin-left: 10px; /* Adjust space between title and link */
+  }
+`;
+
+
+
 
 /* Container for the crypto coin cards */
 const CardsContainer = styled.div`
@@ -119,6 +159,7 @@ const Homepage = () => {
     <>
       <GlobalStyle />
       <Hero />
+      <div><AboutSection/></div>
       <PageContainer>
         <Title level={2} className="heading">Global Crypto Stats</Title>
         <StatsRow>
@@ -141,10 +182,10 @@ const Homepage = () => {
         
         <HomeHeadingContainer>
           <SectionHeader>
-            <Title level={2} className="home-title">Top 10 Crypto Coins</Title>
-            <Title level={3} className="show-more">
-              <Link to="/cryptocurrencies" className="show">Show more</Link>
-            </Title>
+          <HeaderTitle level={2} className="home-title">Top Crypto Coins</HeaderTitle>
+    <HeaderLink level={3} className="show-more">
+      <Link to="/cryptocurrencies" className="show">Show more</Link>
+    </HeaderLink>
           </SectionHeader>
           <CardsContainer>
             {cryptos.map((coin) => (
@@ -166,10 +207,10 @@ const Homepage = () => {
         
         <HomeHeadingContainer>
           <SectionHeader>
-            <Title level={2} className="home-title">Latest Crypto News</Title>
-            <Title level={3}>
-              <Link to="/news">Show more</Link>
-            </Title>
+          <HeaderTitle level={2} className="home-title">Crpto News</HeaderTitle>
+    <HeaderLink level={3} className="show-more">
+      <Link to="/news" className="show">Show more</Link>
+    </HeaderLink>
           </SectionHeader>
         </HomeHeadingContainer>
         

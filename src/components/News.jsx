@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Select, Avatar } from 'antd';
+import { Avatar } from 'antd';
 import moment from 'moment';
 import styled from 'styled-components';
 import Loader from './Loader';
-import { useGetCryptosQuery } from '../services/cryptoApi';
 
-const demoImage = 'https://www.bing.com/th?id=OVFT.mpzuVZnv8dwIMRfQGPbOPC&pid=News';
-const { Option } = Select;
-
-const NEWS_API_KEY = "pub_73729d566c23e2c9bf361adbf3eb2bc934511";
-
-// Styled Components
+const demoImage = 'https://i.sstatic.net/mwFzF.png';
+// Replace with your NewsAPI.org API key
+const NEWS_API_KEY = "3d5f4a77ed5347d4a27c951feca4bda1";
 
 const NewsContainer = styled.div`
   max-width: 1200px;
@@ -18,16 +14,12 @@ const NewsContainer = styled.div`
   padding: 0 16px;
 `;
 
-const StyledSelectWrapper = styled.div`
-  margin-bottom: 20px;
-`;
-
 const NeomorphicCard = styled.div`
-  background: #1e1e1e;
+  background: #ffffff;
   border-radius: 16px;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow:  8px 8px 16px rgba(0, 0, 0, 0.4), -8px -8px 16px rgba(255, 255, 255, 0.05);
+  box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.1), -8px -8px 16px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   height: 100%;
   display: flex;
@@ -37,7 +29,7 @@ const NeomorphicCard = styled.div`
 
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5), -10px -10px 20px rgba(255, 255, 255, 0.05);
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.15), -10px -10px 20px rgba(0, 0, 0, 0.05);
   }
 `;
 
@@ -68,7 +60,7 @@ const NewsTitle = styled.h4`
 
 const NewsDescription = styled.p`
   font-size: 0.95rem;
-  color: #ccc;
+  color: #333;
   line-height: 1.4;
   margin-bottom: 16px;
   text-align: justify;
@@ -98,72 +90,45 @@ const NewsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 24px;
+  justify-content: center;
 `;
 
-const ResponsiveSelect = styled(Select)`
-  width: 100%;
-`;
-
-// Main Component
-
-const News = ({ simplified }) => {
-  const [newsCategory, setNewsCategory] = useState('Cryptocurrency');
+const CryptoNews = () => {
   const [cryptoNews, setCryptoNews] = useState(null);
-  const { data } = useGetCryptosQuery(100);
 
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const count = simplified ? 6 : 12;
+        const count = 12;
         const response = await fetch(
-          `https://newsdata.io/api/1/news?apikey=${NEWS_API_KEY}&q=${encodeURIComponent(newsCategory)}&language=en`
+          `https://newsapi.org/v2/everything?q=cryptocurrency&language=en&pageSize=${count}&apiKey=${NEWS_API_KEY}`
         );
         const newsData = await response.json();
-        // Transform the API response to the structure our component expects
-        const transformed = newsData.results.map(article => ({
-          url: article.link,
+        // Transform the API response (articles array)
+        const transformed = newsData.articles.map(article => ({
+          url: article.url,
           name: article.title,
           description: article.description || "",
-          datePublished: article.pubDate,
-          image: { thumbnail: { contentUrl: article.image_url || demoImage } },
+          datePublished: article.publishedAt,
+          image: { thumbnail: { contentUrl: article.urlToImage || demoImage } },
           provider: [{
-            name: article.source || "Unknown",
+            name: article.source?.name || "Unknown",
             image: { thumbnail: { contentUrl: demoImage } }
           }]
         }));
-        setCryptoNews({ value: transformed.slice(0, count) });
+        setCryptoNews({ value: transformed });
       } catch (error) {
         console.error('Error fetching crypto news:', error);
       }
     };
 
     fetchNews();
-  }, [newsCategory, simplified]);
+  }, []);
 
   if (!cryptoNews || !cryptoNews.value) return <Loader />;
 
   return (
     <NewsContainer>
-      {!simplified && (
-        <StyledSelectWrapper>
-          <ResponsiveSelect
-            showSearch
-            placeholder="Select a Crypto"
-            optionFilterProp="children"
-            onChange={(value) => setNewsCategory(value)}
-            filterOption={(input, option) =>
-              option.children.toLowerCase().includes(input.toLowerCase())
-            }
-          >
-            <Option value="Cryptocurrency">Cryptocurrency</Option>
-            {data?.data?.coins?.map(currency => (
-              <Option key={currency.name} value={currency.name}>
-                {currency.name}
-              </Option>
-            ))}
-          </ResponsiveSelect>
-        </StyledSelectWrapper>
-      )}
       <NewsGrid>
         {cryptoNews.value.map((news, i) => (
           <NeomorphicCard key={i}>
@@ -176,7 +141,11 @@ const News = ({ simplified }) => {
                 />
               </NewsImageContainer>
               <NewsDescription>
-                {news.description.length > 100 ? `${news.description.substring(0, 100)}...` : news.description}
+                {news.description 
+                  ? (news.description.length > 100 
+                      ? `${news.description.substring(0, 100)}...` 
+                      : news.description)
+                  : "No description available."}
               </NewsDescription>
               <ProviderContainer>
                 <ProviderInfo>
@@ -193,4 +162,4 @@ const News = ({ simplified }) => {
   );
 };
 
-export default News;
+export default CryptoNews;

@@ -8,6 +8,8 @@ import ProtectedRoute from "./protectedRoute1.jsx";
 import "./App.css";
 import SignUp from "./components/SignUp.jsx";
 import SignIn from "./components/SignIn.jsx";
+import CryptoVerseLanding from "./components/CRYPTOVERSE.jsx";
+import Footer from "./components/Footer.jsx";
 
 // Define roles here
 const ROLES = {
@@ -26,6 +28,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Homepage />} />
               <Route path="/exchanges" element={<Exchanges />} />
+              <Route path="/about" element={<CryptoVerseLanding />} />
               <Route path="/cryptocurrencies" element={<Cryptocurrencies />} />
               <Route path="/crypto/:coinId" element={<CryptoDetails />} />
               <Route path="/signin" element={<SignIn />} />
@@ -38,16 +41,7 @@ const App = () => (
           </div>
         </Layout>
         <div className="footer" style={{ backgroundColor: "black" }}>
-          <Typography.Title level={5} style={{ color: "white", textAlign: "center" }}>
-            Copyright © 2025
-            <Link to="/"> Cryptoverse Inc.</Link> <br />
-            All Rights Reserved.
-          </Typography.Title>
-          <Space>
-            <Link to="/">Home</Link>
-            <Link to="/exchanges">Exchanges</Link>
-            <Link to="/news">News</Link>
-          </Space>
+         <Footer/>
         </div>
       </div>
     </div>

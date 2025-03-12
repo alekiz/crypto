@@ -6,12 +6,21 @@ import styled from 'styled-components';
 
 const LOGIN_URL = '/api/auth/signin';
 
+// Update the Container styling:
+// - Use a white background overall
+// - For larger viewports, fill the viewport height (min-height: 100vh)
+// - For smartphones (max-width: 480px), remove the forced height and add extra padding
 const Container = styled.div`
-  background: #e0e0e0;
+  background: #ffffff;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 480px) {
+    min-height: auto;
+    padding: 100px 16px; /* Big spaces on top and bottom, with some horizontal padding */
+  }
 `;
 
 const FormWrapper = styled.form`
@@ -111,7 +120,7 @@ const SignIn = () => {
         JSON.stringify({ email, password }),
         {
           headers: { 'Content-Type': 'application/json' },
-          withCredentials: false,
+          withCredentials: true,
         }
       );
       console.log(JSON.stringify(response?.data));

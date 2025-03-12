@@ -20,7 +20,7 @@ const Hero = () => {
           <button className="btn hero-btn-primary">
             <Link to="/dashboard">Start Mining</Link>
           </button>
-          <button className="btn hero-btn-outline">How It Works?</button>
+          <button className="btn hero-btn-outline"> <Link to="/about">How It Works?</Link></button>
         </div>
       </div>
       {/* Right-Side Hero Graphic */}
