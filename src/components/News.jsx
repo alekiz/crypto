@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Loader from './Loader';
 
 const demoImage = 'https://i.sstatic.net/mwFzF.png';
-// Replace with your NewsAPI.org API key
+// Your NewsAPI.org API key
 const NEWS_API_KEY = "3d5f4a77ed5347d4a27c951feca4bda1";
 
 const NewsContainer = styled.div`
@@ -104,8 +104,9 @@ const CryptoNews = () => {
           `https://newsapi.org/v2/everything?q=cryptocurrency&language=en&pageSize=${count}&apiKey=${NEWS_API_KEY}`
         );
         const newsData = await response.json();
-        // Transform the API response (articles array)
-        const transformed = newsData.articles.map(article => ({
+        // Use a fallback empty array if articles is undefined
+        const articles = newsData.articles || [];
+        const transformed = articles.map(article => ({
           url: article.url,
           name: article.title,
           description: article.description || "",
