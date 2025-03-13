@@ -101,8 +101,13 @@ const CryptoNews = () => {
       try {
         const count = 12;
         const response = await fetch(
-          `https://newsapi.org/v2/everything?q=cryptocurrency&language=en&pageSize=${count}&apiKey=${NEWS_API_KEY}`
-        );
+  `https://newsapi.org/v2/everything?q=cryptocurrency&language=en&pageSize=${count}&apiKey=${NEWS_API_KEY}`,
+  {
+    headers: {
+      "Upgrade-Insecure-Requests": "1"
+    }
+  }
+);
         const newsData = await response.json();
         // Use a fallback empty array if articles is undefined
         const articles = newsData.articles || [];
