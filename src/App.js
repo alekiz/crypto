@@ -1,5 +1,5 @@
 import React from "react";
-import { HashRouter as Router, Routes, Route, Link } from "react-router-dom";
+import {Browserouter as Router, Routes, Route, Link } from "react-router-dom";
 import { Layout, Typography, Space } from "antd";
 import Login from "./components/SignIn.jsx";
 import { Exchanges, Homepage, News, Cryptocurrencies, CryptoDetails, Navbar } from "./components/index.js";
